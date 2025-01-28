@@ -43,15 +43,12 @@ describe("Rewards Component", () => {
 
     await waitFor(() => expect(fetchTransactions).toHaveBeenCalledTimes(1));
 
-    // Use getAllByText to find all occurrences of "Charlie"
     const charlieEntries = screen.getAllByText(/Charlie/i);
 
-    // Verify specific elements using their surrounding context
-    expect(charlieEntries[0]).toBeInTheDocument(); // From the Transactions table
-    expect(screen.getByText(/150/i)).toBeInTheDocument(); // Specific transaction
-    expect(screen.getByText(/2024-12-15/i)).toBeInTheDocument(); // Specific date
+    expect(charlieEntries[0]).toBeInTheDocument();
+    expect(screen.getByText(/150/i)).toBeInTheDocument();
+    expect(screen.getByText(/2024-12-15/i)).toBeInTheDocument();
 
-    // Ensure the older transaction is not present
     expect(() => screen.getByText(/2024-11-15/i)).toThrow();
   });
 });
