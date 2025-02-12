@@ -1,0 +1,164 @@
+{
+  "TRANSACTION_DATA": [
+    {
+      "id": 1,
+      "customerID": "C001",
+      "customerName": "Alice",
+      "purchaseDate": "2025-01-15",
+      "productName": "Laptop",
+      "price": "-120.7"
+    },
+    {
+      "id": 2,
+      "customerID": "C002",
+      "customerName": "Bob",
+      "purchaseDate": "2025-01-20",
+      "productName": "Headphones",
+      "price": -75.5
+    },
+    {
+      "id": 3,
+      "customerID": "C001",
+      "customerName": "Alice",
+      "purchaseDate": "2025-01-16",
+      "productName": "Smartphone",
+      "price": 200.4
+    },
+    {
+      "id": 4,
+      "customerID": "C002",
+      "customerName": "Bob",
+      "purchaseDate": "2024-12-15",
+      "productName": "Mouse",
+      "price": -50
+    },
+    {
+      "id": 5,
+      "customerID": "C003",
+      "customerName": "Charlie",
+      "purchaseDate": "2024-03-01",
+      "productName": "Monitor",
+      "price": 150
+    },
+    {
+      "id": 6,
+      "customerID": "C001",
+      "customerName": "Alice",
+      "purchaseDate": "2024-03-10",
+      "productName": "Keyboard",
+      "price": 90
+    },
+    {
+      "id": 7,
+      "customerID": "C003",
+      "customerName": "Charlie",
+      "purchaseDate": "2024-03-15",
+      "productName": "TV",
+      "price": 220
+    },
+    {
+      "id": 8,
+      "customerID": "C002",
+      "customerName": "Bob",
+      "purchaseDate": "2024-01-25",
+      "productName": "Router",
+      "price": 110.9
+    },
+    {
+      "id": 9,
+      "customerID": "C001",
+      "customerName": "Alice",
+      "purchaseDate": "2024-03-20",
+      "productName": "Tablet",
+      "price": 50
+    },
+    {
+      "id": 10,
+      "customerID": "C001",
+      "customerName": "Alice",
+      "purchaseDate": "2024-11-05",
+      "productName": "Camera",
+      "price": 180.4
+    },
+    {
+      "id": 11,
+      "customerID": "C003",
+      "customerName": "Charlie",
+      "purchaseDate": "2024-04-10",
+      "productName": "Speaker",
+      "price": 130
+    },
+    {
+      "id": 12,
+      "customerID": "C002",
+      "customerName": "Bob",
+      "purchaseDate": "2024-05-15",
+      "productName": "Headphones",
+      "price": 75
+    },
+    {
+      "id": 13,
+      "customerID": "C001",
+      "customerName": "Alice",
+      "purchaseDate": "2024-06-01",
+      "productName": "Keyboard",
+      "price": 90.8
+    },
+    {
+      "id": 14,
+      "customerID": "C003",
+      "customerName": "Charlie",
+      "purchaseDate": "2024-06-20",
+      "productName": "Monitor",
+      "price": 200
+    },
+    {
+      "id": 15,
+      "customerID": "C002",
+      "customerName": "Bob",
+      "purchaseDate": "2024-12-05",
+      "productName": "Laptop",
+      "price": 120
+    },
+    {
+      "id": 16,
+      "customerID": "C001",
+      "customerName": "Alice",
+      "purchaseDate": "2024-12-15",
+      "productName": "Smartphone",
+      "price": 250
+    },
+    {
+      "id": 17,
+      "customerID": "C003",
+      "customerName": "Charlie",
+      "purchaseDate": "2024-09-10",
+      "productName": "Camera",
+      "price": 100
+    },
+    {
+      "id": 18,
+      "customerID": "C002",
+      "customerName": "Bob",
+      "purchaseDate": "2025-01-05",
+      "productName": "Mouse",
+      "price": 85
+    },
+    {
+      "id": 19,
+      "customerID": "C001",
+      "customerName": "Alice",
+      "purchaseDate": "2024-11-25",
+      "productName": "TV",
+      "price": 140
+    },
+    {
+      "id": 20,
+      "customerID": "C003",
+      "customerName": "Charlie",
+      "purchaseDate": "2024-12-15",
+      "productName": "Speaker",
+      "price": 175
+    }
+  ]
+}

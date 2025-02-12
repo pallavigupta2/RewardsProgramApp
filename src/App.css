@@ -10,80 +10,193 @@ body {
   color: #333;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+/* Header CSS */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 96%;
+  z-index: 1000;
 }
 
-.title {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 2rem;
-  color: #333;
+.logo {
+  display: flex;
+  align-items: center;
 }
 
-.spinner {
-  text-align: center;
-  font-size: 1.5rem;
-  color: #555;
+.logo img {
+  height: 40px;
+  margin-right: 10px;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: 1fr;
+.logo span {
+  font-size: 24px;
+  font-weight: bold;
+  color: #006837;
+}
+
+.nav {
+  display: flex;
   gap: 20px;
 }
 
+.nav button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: #006837;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.nav button.active {
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: center;
+  }
+  .nav {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+/* Transaction Table */
+
 .card {
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
+  margin: 20px;
 }
 
 .card-title {
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-  color: #444;
-  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #333;
+  padding-top: 20px;
 }
 
 .table {
   width: 100%;
   border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table thead {
+  background: #006837;
+  color: white;
 }
 
 .table th,
 .table td {
-  border: 1px solid #ddd;
-  padding: 8px;
+  padding: 12px;
   text-align: left;
 }
 
-.table th {
-  background-color: #f4f4f4;
-  color: #333;
-  font-weight: bold;
+.table tbody tr:nth-child(even) {
+  background: #e3f5e8;
 }
 
-.table tr:nth-child(even) {
-  background-color: #f9f9f9;
+.table tbody tr:hover {
+  background: #e7ffe6;
+  cursor: pointer;
 }
 
-.table tr:hover {
-  background-color: #f1f1f1;
-}
-
-@media (min-width: 768px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
+@media (max-width: 768px) {
+  .table th,
+  .table td {
+    padding: 8px;
+    font-size: 14px;
   }
 }
 
-@media (min-width: 1024px) {
-  .grid {
-    grid-template-columns: repeat(3, 1fr);
+/* Error Message */
+
+.error-container {
+  position: fixed; /* Sticks to the top */
+  top: 150px;
+  left: 400px;
+  width: 40%;
+  background-color: #f44336; /* Red background */
+  color: white;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 4px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1000; /* Ensures it appears above other elements */
+}
+
+.error-icon {
+  font-size: 18px;
+}
+
+.error-message {
+  flex-grow: 1;
+  text-align: left;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .error-container {
+    font-size: 12px;
+    padding: 10px;
+  }
+
+  .error-icon {
+    font-size: 16px;
+  }
+}
+
+/* Loading CSS */
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+  background-color: rgba(255, 255, 255, 0.8); /* Light overlay effect */
+}
+
+.loading {
+  font-size: 18px;
+  font-weight: bold;
+  color: #007bff; /* Blue color for a loading feel */
+  animation: blink 1.5s infinite;
+}
+
+/* Blinking effect */
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .loading {
+    font-size: 14px;
   }
 }

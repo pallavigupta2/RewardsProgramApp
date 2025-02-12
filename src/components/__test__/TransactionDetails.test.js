@@ -1,30 +1,75 @@
+import React from "react";
 import { render, screen } from "@testing-library/react";
 import TransactionDetails from "../TransactionDetails";
+import { calculatePoints } from "../../utils/rewardspoints";
+
+jest.mock("../../utils/rewardspoints", () => ({
+  calculatePoints: jest.fn(),
+}));
+
 describe("TransactionDetails Component", () => {
-  const mockTransactions = [
-    {
-      id: 1,
-      customerName: "Alice",
-      purchaseDate: "2025-01-15",
-      price: 120,
-      rewardPoints: 240,
-    },
-    {
-      id: 2,
-      customerName: "Bob",
-      purchaseDate: "2025-01-20",
-      price: 75,
-      rewardPoints: 25,
-    },
-  ];
+  test("renders transactions correctly", () => {
+    const transactions = [
+      {
+        id: 1,
+        customerID: "C123",
+        customerName: "John Doe",
+        purchaseDate: "2024-01-15",
+        productName: "Laptop",
+        price: "120.50",
+      },
+      {
+        id: 2,
+        customerID: "C456",
+        customerName: "Jane Smith",
+        purchaseDate: "2024-02-10",
+        productName: "Phone",
+        price: "80.00",
+      },
+    ];
 
-  test("renders transaction details correctly", () => {
-    render(<TransactionDetails transactions={mockTransactions} />);
+    calculatePoints.mockImplementation((price) => Math.floor(price));
 
-    expect(screen.getByText(/Transactions/i)).toBeInTheDocument();
-    expect(screen.getByText(/Alice/i)).toBeInTheDocument();
-    expect(screen.getByText(/2025-01-15/i)).toBeInTheDocument();
-    expect(screen.getByText(/120/i)).toBeInTheDocument();
-    expect(screen.getByText(/240/i)).toBeInTheDocument();
+    render(<TransactionDetails transactions={transactions} />);
+
+    expect(screen.getByText("Transactions")).toBeInTheDocument();
+    expect(screen.getByText("John Doe")).toBeInTheDocument();
+    expect(screen.getByText("Jane Smith")).toBeInTheDocument();
+    expect(screen.getByText("Laptop")).toBeInTheDocument();
+    expect(screen.getByText("Phone")).toBeInTheDocument();
+    expect(screen.getByText("$120.5")).toBeInTheDocument();
+    expect(screen.getByText("$80")).toBeInTheDocument();
+    expect(screen.getByText("120")).toBeInTheDocument();
+    expect(screen.getByText("80")).toBeInTheDocument();
+  });
+
+  test("handles empty transactions array", () => {
+    render(<TransactionDetails transactions={[]} />);
+    expect(screen.getByText("No Transaction Found")).toBeInTheDocument();
+
+    expect(
+      screen.queryByRole("row", { name: /John Doe/i })
+    ).not.toBeInTheDocument();
+  });
+
+  test("handles incorrect price values gracefully", () => {
+    const transactions = [
+      {
+        id: 3,
+        customerID: "C789",
+        customerName: "Alice Johnson",
+        purchaseDate: "2024-03-20",
+        productName: "Tablet",
+        price: "invalid",
+      },
+    ];
+
+    calculatePoints.mockImplementation(() => 0);
+
+    render(<TransactionDetails transactions={transactions} />);
+    expect(screen.getByText("Alice Johnson")).toBeInTheDocument();
+    expect(screen.getByText("Tablet")).toBeInTheDocument();
+    expect(screen.getByText("$0")).toBeInTheDocument();
+    expect(screen.getByText("0")).toBeInTheDocument();
   });
 });
