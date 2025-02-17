@@ -57,7 +57,7 @@ Maintains an activeTab state to switch between TransactionDetails, TotalRewards,
 
 Uses a logging utility (logger) to track data fetching success and errors.
 
-<img src="./src/media/App.jpg"/>
+<img src="./public/media/App.jpg"/>
 
 ### Header Component
 
@@ -71,13 +71,13 @@ activeTab (string, required) - Represents the currently selected tab. Determines
 
 The LoadingIndicator component is responsible for displaying a loading message while data is being fetched or processed in the application. It provides visual feedback to the user, indicating that an operation is in progress.
 
-<img src="./src/media/Loading.jpg"/>
+<img src="./public/media/Loading.jpg"/>
 
 ### Error Component
 
 The Error component is responsible for displaying error messages when an operation fails. It provides a user-friendly way to communicate errors through a visually distinct error container.
 
-<img src="./src/media/error.jpg"/>
+<img src="./public/media/Error.jpg"/>
 
 ### MonthRewards Component
 
@@ -87,7 +87,7 @@ Props - transactions (Required)
 
 An array of transaction objects with the following structure:
 
-## Key | Type | Description
+Key | Type | Description
 
 id | number | Unique identifier for the transaction.
 
@@ -103,7 +103,11 @@ price | string or number | The price of the purchased product.
 
 aggregateMonthlyRewards(transactions) - Groups transactions by customerName, month, and year. Uses calculatePoints(price) to determine reward points per transaction. Sums the reward points for each unique customer-month-year combination.
 
-<img src="./src/media/monthlyrewards.jpg"/>
+<img src="./public/media/MonthlyRewards.jpg"/>
+
+If transactions prop is empty then it will show below error.
+
+<img src="./public/media/EmptyUserMonthlyError.jpg"/>
 
 ### TotalRewards Component
 
@@ -125,7 +129,11 @@ transactions | array | Yes | List of purchase transactions. Each transaction sho
  | customerName, purchaseDate, productName, and price.
 Functions
 
-<img src="./src/media/totalRewards.jpg"/>
+<img src="./public/media/TotalRewards.jpg"/>
+
+If transactions prop is empty then it will show below error.
+
+<img src="./public/media/EmptyTotalTransactionError.jpg"/>
 
 ### TransactionDetails Component
 
@@ -137,7 +145,11 @@ The calculatePoints(price) function is used to compute the reward points based o
 
 Prices are parsed to ensure they are valid floating-point numbers.
 
-<img src="./src/media/transaction.jpg"/>
+<img src="./public/media/Transaction.jpg"/>
+
+If transactions prop is empty then it will show below error.
+
+<img src="./public/media/EmptyTransactionError.jpg"/>
 
 ### calculatePoints Function
 
@@ -156,3 +168,7 @@ No points for purchases $50 or below.
 Libraries Used - React Testing Library: For rendering components and querying DOM elements.
 
 Jest: As the test runner and assertion library.
+
+### Screenshot for all test cases passed.
+
+<img src="./public/media/TestCase.jpg"/>

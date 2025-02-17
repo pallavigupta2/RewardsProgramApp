@@ -1,26 +1,44 @@
 import React, { useMemo } from "react";
 import PropTypes from "prop-types";
-import { calculatePoints } from "../utils/rewardspoints";
+import { calculatePoints } from "../utils/RewardsPoints";
 import Error from "./Error";
 
+// Function to calculate the last three months' rewards
 const calculateLastThreeMonthsRewards = (transactions) => {
-  const today = new Date();
-  const threeMonthsAgo = new Date(today.getFullYear(), today.getMonth() - 2, 1);
+  if (!transactions || transactions.length === 0) return new Map();
 
+  // Determine the latest purchase date from dataset
+  const latestDate = new Date(
+    Math.max(
+      ...transactions.map(({ purchaseDate }) => {
+        const date = new Date(purchaseDate);
+        if (isNaN(date.getTime())) {
+          return -Infinity;
+        }
+        return date;
+      })
+    )
+  );
+
+  // Compute the start date of the last three months
+  const threeMonthsAgo = new Date(
+    latestDate.getFullYear(),
+    latestDate.getMonth() - 2,
+    1
+  );
+
+  // Filter transactions within the last three months
   const filteredTransactions = transactions.filter(({ purchaseDate }) => {
     const date = new Date(purchaseDate);
-    return date >= threeMonthsAgo && date <= today;
+    return date >= threeMonthsAgo && date <= latestDate;
   });
 
-  // Aggregate reward points by customer
+  // Aggregate reward points using a Map
   return filteredTransactions.reduce((acc, { customerName, price }) => {
     const points = calculatePoints(price);
-    if (!acc[customerName]) {
-      acc[customerName] = { customerName, rewardPoints: 0 };
-    }
-    acc[customerName].rewardPoints += points;
+    acc.set(customerName, (acc.get(customerName) || 0) + points);
     return acc;
-  }, {});
+  }, new Map());
 };
 
 const TotalRewards = ({ transactions }) => {
@@ -28,12 +46,12 @@ const TotalRewards = ({ transactions }) => {
     () => calculateLastThreeMonthsRewards(transactions),
     [transactions]
   );
-  return !Object.values(totalRewards).length ? (
+  return totalRewards.size === 0 ? (
     <Error message="No Total Rewards Found" />
   ) : (
     <div className="card">
       <h2 className="card-title" data-testid="total-reward">
-        Total Rewards
+        Total Rewards for Last Three Months
       </h2>
       <table className="table">
         <thead>
@@ -43,10 +61,10 @@ const TotalRewards = ({ transactions }) => {
           </tr>
         </thead>
         <tbody>
-          {Object.values(totalRewards)?.map((reward, index) => (
-            <tr key={index}>
-              <td>{reward.customerName}</td>
-              <td>{reward.rewardPoints}</td>
+          {Array.from(totalRewards, ([customerName, rewardPoints]) => (
+            <tr key={customerName}>
+              <td>{customerName}</td>
+              <td>{rewardPoints}</td>
             </tr>
           ))}
         </tbody>

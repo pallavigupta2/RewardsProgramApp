@@ -1,32 +1,26 @@
-import React from "react";
-import { fireEvent, render, screen } from "@testing-library/react";
-import App from "./App";
-import { fetchTransactions } from "../src/utils/service";
+import { render, screen, waitFor, fireEvent } from "@testing-library/react";
+import RewardsDashboard from "./RewardsDashboard";
+import { fetchTransactions } from "../utils/Services";
+import logger from "../logger";
 
-jest.mock("../src/utils/service", () => ({
+jest.mock("../utils/Services", () => ({
   fetchTransactions: jest.fn(),
 }));
 
-jest.mock("./logger", () => ({
-  info: jest.fn(),
+jest.mock("../logger", () => ({
   error: jest.fn(),
 }));
 
-describe("App Component", () => {
-  afterEach(() => {
+describe("RewardsDashboard", () => {
+  beforeEach(() => {
     jest.clearAllMocks();
-  });
-  test("renders Header component", () => {
-    render(<App />);
-    expect(screen.getByText("Rewardify")).toBeInTheDocument();
   });
 
   test("shows loading indicator while fetching transactions", async () => {
     fetchTransactions.mockResolvedValueOnce([]);
-    render(<App />);
+    render(<RewardsDashboard />);
     expect(screen.getByText("Loading Transactions...")).toBeInTheDocument();
   });
-
   test("renders transactions after successful fetch", async () => {
     const mockTransactions = [
       {
@@ -39,22 +33,39 @@ describe("App Component", () => {
       },
     ];
     fetchTransactions.mockResolvedValueOnce(mockTransactions);
-    render(<App />);
+    render(<RewardsDashboard />);
     // Wait for the loading message to appear
     expect(screen.getByText("Loading Transactions...")).toBeInTheDocument();
-
+    await waitFor(() => expect(screen.getByText("Transactions")));
     await screen.findByText(/Alice/i);
   });
+  test("displays error message on API failure", async () => {
+    fetchTransactions.mockRejectedValue(new Error("API Error"));
+    render(<RewardsDashboard />);
+    await waitFor(() =>
+      expect(
+        screen.getByText("Failed to fetch transactions. Please try again.")
+      )
+    );
+    expect(logger.error).toHaveBeenCalledWith(
+      "Failed to load transactions",
+      expect.any(Error)
+    );
+  });
 
-  test("handles fetch error and displays error message", async () => {
-    fetchTransactions.mockRejectedValueOnce(new Error("Network error"));
-    render(<App />);
-    await screen.findByText("Failed to fetch transactions. Please try again.");
+  test("renders error message when API fails and does not display transactions", async () => {
+    fetchTransactions.mockRejectedValue(new Error("API Error"));
+    render(<RewardsDashboard />);
+    await waitFor(() => {
+      expect(
+        screen.getByText("Failed to fetch transactions. Please try again.")
+      ).toBeInTheDocument();
+    });
   });
 
   test("allows switching between tabs", async () => {
     fetchTransactions.mockResolvedValueOnce([]);
-    render(<App />);
+    render(<RewardsDashboard />);
     await screen.findByText("Transactions");
 
     fireEvent.click(screen.getByText("Total Rewards"));
@@ -66,7 +77,7 @@ describe("App Component", () => {
     fireEvent.click(screen.getByText("User Monthly Rewards"));
     const monthlyRewardHeading = screen.queryByTestId("monthly-reward");
     const monthlyRewardError = screen.queryByText(
-      "No Monhtly Transaction Found"
+      "No Monthly Transaction Found"
     );
 
     expect(monthlyRewardHeading || monthlyRewardError).toBeInTheDocument();

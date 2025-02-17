@@ -1,9 +1,9 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import MonthRewards from "../MonthRewards";
-import { calculatePoints } from "../../utils/rewardspoints";
+import { calculatePoints } from "../../utils/RewardsPoints";
 
-jest.mock("../../utils/rewardspoints", () => ({
+jest.mock("../../utils/RewardsPoints", () => ({
   calculatePoints: jest.fn(),
 }));
 
@@ -47,7 +47,9 @@ describe("MonthRewards Component", () => {
 
   test("handles empty transactions array", () => {
     render(<MonthRewards transactions={[]} />);
-    expect(screen.getByText("No Monhtly Transaction Found")).toBeInTheDocument();
+    expect(
+      screen.getByText("No Monthly Transaction Found")
+    ).toBeInTheDocument();
     expect(
       screen.queryByRole("row", { name: /John Doe/i })
     ).not.toBeInTheDocument();
@@ -96,5 +98,32 @@ describe("MonthRewards Component", () => {
 
     render(<MonthRewards transactions={transactions} />);
     expect(screen.getByText("Charlie Brown")).toBeInTheDocument();
+  });
+  test("handles empty purchaseDate gracefully and skips invalid entries", () => {
+    const transactions = [
+      {
+        id: 1,
+        customerID: "C1",
+        customerName: "Alice",
+        purchaseDate: "", // Empty purchaseDate (will be skipped)
+        productName: "Item1",
+        price: 100,
+      },
+      {
+        id: 2,
+        customerID: "C1",
+        customerName: "Bob",
+        purchaseDate: "2025-02-25", // Valid purchaseDate
+        productName: "Item2",
+        price: 75.555,
+      },
+    ];
+
+    render(<MonthRewards transactions={transactions} />);
+
+    // Ensure that the transaction with an empty purchaseDate is skipped
+    // and only the valid transaction is considered in the reward calculation
+    expect(screen.getByText("Bob")).toBeInTheDocument();
+    expect(screen.queryByText("Alice")).not.toBeInTheDocument();
   });
 });

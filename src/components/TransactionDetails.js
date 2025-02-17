@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { calculatePoints } from "../utils/rewardspoints";
+import { calculatePoints, formatPrice } from "../utils/RewardsPoints";
 import Error from "./Error";
 
 const TransactionDetails = ({ transactions }) => {
@@ -24,15 +24,14 @@ const TransactionDetails = ({ transactions }) => {
         </thead>
         <tbody>
           {transactions?.map((transaction) => {
-            const price = parseFloat(transaction.price) || 0;
             return (
               <tr key={transaction.id}>
                 <td>{transaction.id}</td>
                 <td>{transaction.customerName}</td>
                 <td>{transaction.purchaseDate}</td>
                 <td>{transaction.productName}</td>
-                <td>${price}</td>
-                <td>{calculatePoints(price)}</td>
+                <td>${formatPrice(transaction.price)}</td>
+                <td>{calculatePoints(transaction.price)}</td>
               </tr>
             );
           })}

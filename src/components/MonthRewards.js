@@ -1,28 +1,35 @@
 import React, { useMemo } from "react";
-import { calculatePoints } from "../utils/rewardspoints";
+import { calculatePoints } from "../utils/RewardsPoints";
 import PropTypes from "prop-types";
 import Error from "./Error";
 
+// Function to aggregate monthly rewards
 function aggregateMonthlyRewards(transactions) {
-  return transactions.reduce((acc, transaction) => {
-    const { customerID, customerName, purchaseDate, price } = transaction;
-    const date = new Date(purchaseDate);
-    const month = date.toLocaleString("en-US", { month: "long" });
-    const year = date.getFullYear();
-    const rewardPoints = calculatePoints(price);
-    const key = `${customerName}-${year}-${month}`;
-    if (!acc[key]) {
-      acc[key] = {
-        customerID,
-        customerName,
-        month,
-        year,
-        rewardPoints: 0,
-      };
-    }
-    acc[key].rewardPoints += rewardPoints;
-    return acc;
-  }, {});
+  return transactions.reduce(
+    (acc, { customerID, customerName, purchaseDate, price }) => {
+      // Validate purchaseDate
+      const date = new Date(purchaseDate);
+      if (isNaN(date.getTime())) {
+        return acc; // Skip this transaction if the date is invalid
+      }
+      const month = date.toLocaleString("en-US", { month: "long" });
+      const year = date.getFullYear();
+      const key = `${customerName}-${year}-${month}`;
+      if (!acc.has(key)) {
+        acc.set(key, {
+          customerID,
+          customerName,
+          month,
+          year,
+          rewardPoints: 0,
+        });
+      }
+      acc.get(key).rewardPoints += calculatePoints(price);
+
+      return acc;
+    },
+    new Map()
+  );
 }
 
 const MonthRewards = ({ transactions }) => {
@@ -30,8 +37,8 @@ const MonthRewards = ({ transactions }) => {
     () => aggregateMonthlyRewards(transactions),
     [transactions]
   );
-  return !Object.values(monthlyRewards).length ? (
-    <Error message="No Monhtly Transaction Found" />
+  return monthlyRewards.size === 0 ? (
+    <Error message="No Monthly Transaction Found" />
   ) : (
     <div className="card">
       <h2 className="card-title" data-testid="monthly-reward">
@@ -48,7 +55,7 @@ const MonthRewards = ({ transactions }) => {
           </tr>
         </thead>
         <tbody>
-          {Object.values(monthlyRewards)?.map((reward, index) => (
+          {Array.from(monthlyRewards.values())?.map((reward, index) => (
             <tr key={index}>
               <td>{reward.customerID}</td>
               <td>{reward.customerName}</td>
