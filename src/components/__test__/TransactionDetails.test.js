@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import TransactionDetails from "../TransactionDetails";
-import { calculatePoints, formatPrice } from "../../utils/RewardsPoints";
+import { calculatePoints, formatPrice } from "../../utils/RewardPointsCalculation";
 
 describe("TransactionDetails Component", () => {
   beforeEach(() => {

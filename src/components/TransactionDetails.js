@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { calculatePoints, formatPrice } from "../utils/RewardsPoints";
+import { calculatePoints, formatPrice } from "../utils/RewardPointsCalculation";
 import Error from "./Error";
 
 const TransactionDetails = ({ transactions }) => {

@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import PropTypes from "prop-types";
-import { calculatePoints } from "../utils/RewardsPoints";
+import { calculatePoints } from "../utils/RewardPointsCalculation";
 import Error from "./Error";
 
 // Function to calculate the last three months' rewards

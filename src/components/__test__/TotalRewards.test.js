@@ -1,9 +1,9 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import TotalRewards from "../TotalRewards";
-import { calculatePoints } from "../../utils/RewardsPoints";
+import { calculatePoints } from "../../utils/RewardPointsCalculation";
 
-jest.mock("../../utils/RewardsPoints", () => ({
+jest.mock("../../utils/RewardPointsCalculation", () => ({
   calculatePoints: jest.fn(),
 }));
 

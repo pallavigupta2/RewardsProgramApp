@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { calculatePoints } from "../utils/RewardsPoints";
+import { calculatePoints } from "../utils/RewardPointsCalculation";
 import PropTypes from "prop-types";
 import Error from "./Error";
 
