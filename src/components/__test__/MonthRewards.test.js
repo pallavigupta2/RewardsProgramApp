@@ -3,10 +3,6 @@ import { render, screen } from "@testing-library/react";
 import MonthRewards from "../MonthRewards";
 import { calculatePoints } from "../../utils/RewardPointsCalculation";
 
-jest.mock("../../utils/RewardPointsCalculation", () => ({
-  calculatePoints: jest.fn(),
-}));
-
 describe("MonthRewards Component", () => {
   test("renders monthly rewards correctly", () => {
     const transactions = [
@@ -16,7 +12,7 @@ describe("MonthRewards Component", () => {
         customerName: "John Doe",
         purchaseDate: "2024-01-15",
         productName: "Laptop",
-        price: "120.50",
+        price: 120.5,
       },
       {
         id: 2,
@@ -24,7 +20,7 @@ describe("MonthRewards Component", () => {
         customerName: "Jane Smith",
         purchaseDate: "2024-02-10",
         productName: "Phone",
-        price: "80.00",
+        price: 80.0,
       },
       {
         id: 3,
@@ -32,11 +28,11 @@ describe("MonthRewards Component", () => {
         customerName: "John Doe",
         purchaseDate: "2024-01-20",
         productName: "Mouse",
-        price: "40.00",
+        price: 40.0,
       },
     ];
 
-    calculatePoints.mockImplementation((price) => Math.floor(price));
+    calculatePoints((price) => Math.floor(price));
 
     render(<MonthRewards transactions={transactions} />);
 
@@ -63,11 +59,11 @@ describe("MonthRewards Component", () => {
         customerName: "Alice Johnson",
         purchaseDate: "2024-03-20",
         productName: "Tablet",
-        price: "-50",
+        price: -50,
       },
     ];
 
-    calculatePoints.mockImplementation(() => 0);
+    calculatePoints(() => 0);
 
     render(<MonthRewards transactions={transactions} />);
     expect(screen.getByText("Alice Johnson")).toBeInTheDocument();
@@ -82,7 +78,7 @@ describe("MonthRewards Component", () => {
         customerName: "Charlie Brown",
         purchaseDate: "2024-02-01",
         productName: "Keyboard",
-        price: "60.00",
+        price: 60.0,
       },
       {
         id: 6,
@@ -90,11 +86,11 @@ describe("MonthRewards Component", () => {
         customerName: "Charlie Brown",
         purchaseDate: "2024-02-15",
         productName: "Monitor",
-        price: "200.00",
+        price: 200.0,
       },
     ];
 
-    calculatePoints.mockImplementation((price) => Math.floor(price));
+    calculatePoints((price) => Math.floor(price));
 
     render(<MonthRewards transactions={transactions} />);
     expect(screen.getByText("Charlie Brown")).toBeInTheDocument();

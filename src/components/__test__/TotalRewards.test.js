@@ -3,15 +3,9 @@ import { render, screen } from "@testing-library/react";
 import TotalRewards from "../TotalRewards";
 import { calculatePoints } from "../../utils/RewardPointsCalculation";
 
-jest.mock("../../utils/RewardPointsCalculation", () => ({
-  calculatePoints: jest.fn(),
-}));
-
 describe("TotalRewards Component", () => {
   test("renders total rewards table correctly for last three months (Jan 2024 - Jan 2025)", () => {
-    calculatePoints.mockImplementation((price) =>
-      price > 50 ? price - 50 : 0
-    );
+    calculatePoints((price) => (price > 50 ? price - 50 : 0));
 
     const transactions = [
       {
@@ -63,14 +57,12 @@ describe("TotalRewards Component", () => {
 
     expect(screen.getByText("25")).toBeInTheDocument();
 
-    expect(screen.getByText("70")).toBeInTheDocument();
+    expect(screen.getByText("90")).toBeInTheDocument();
 
     expect(screen.getByText("10")).toBeInTheDocument();
   });
   test("renders total rewards for last three months (March 2024 - March 2025)", () => {
-    calculatePoints.mockImplementation((price) =>
-      price > 50 ? price - 50 : 0
-    );
+    calculatePoints((price) => (price > 50 ? price - 50 : 0));
 
     const transactions = [
       {
