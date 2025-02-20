@@ -103,7 +103,7 @@ body {
 .table th,
 .table td {
   padding: 12px;
-  text-align: left;
+  text-align: center;
 }
 
 .table tbody tr:nth-child(even) {
@@ -199,8 +199,4 @@ body {
   .loading {
     font-size: 14px;
   }
-}
-
-.right-aligned {
-  text-align: right !important;
 }

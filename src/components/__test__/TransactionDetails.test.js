@@ -1,7 +1,10 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import TransactionDetails from "../TransactionDetails";
-import { calculatePoints, formatPrice } from "../../utils/RewardPointsCalculation";
+import {
+  calculatePoints,
+  formatPrice,
+} from "../../utils/RewardPointsCalculation";
 
 describe("TransactionDetails Component", () => {
   beforeEach(() => {
@@ -98,13 +101,13 @@ describe("TransactionDetails Component", () => {
 
     calculatePoints((price) => Math.floor(price));
     formatPrice((price) =>
-      isNaN(parseFloat(price)) ? "$0.00" : `$${parseFloat(price).toFixed(2)}`
+      isNaN(parseFloat(price)) ? 0 : `$${parseFloat(price).toFixed(2)}`
     );
 
     render(<TransactionDetails transactions={transactions} />);
     expect(screen.getByText("Alice Johnson")).toBeInTheDocument();
     expect(screen.getByText("Tablet")).toBeInTheDocument();
-    expect(screen.getByText("$0.00")).toBeInTheDocument();
+    expect(screen.getByText("$0")).toBeInTheDocument();
     expect(screen.getByText("0")).toBeInTheDocument();
   });
   test("handles transaction with negative price", () => {
@@ -145,13 +148,13 @@ describe("TransactionDetails Component", () => {
 
     calculatePoints((price) => Math.floor(price));
     formatPrice((price) =>
-      isNaN(parseFloat(price)) ? "$0.00" : `$${parseFloat(price).toFixed(2)}`
+      isNaN(parseFloat(price)) ? 0.0 : `$${parseFloat(price).toFixed(2)}`
     );
 
     render(<TransactionDetails transactions={transactions} />);
     expect(screen.getByText("NaN Price")).toBeInTheDocument();
     expect(screen.getByText("Unknown Item")).toBeInTheDocument();
-    expect(screen.getByText(`$0.00`)).toBeInTheDocument(); // Ensuring NaN is replaced
+    expect(screen.getByText("$0")).toBeInTheDocument(); // Ensuring NaN is replaced
     expect(screen.getByText("0")).toBeInTheDocument();
   });
 });

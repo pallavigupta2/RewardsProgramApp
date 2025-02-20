@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { calculatePoints, formatPrice } from "../utils/RewardPointsCalculation";
-import Error from "./Error";
+import ErrorNotification from "./common/ErrorNotification";
 
 const TransactionDetails = ({ transactions }) => {
   return !transactions?.length ? (
-    <Error message="No Transaction Found" />
+    <ErrorNotification message="No Transaction Found" />
   ) : (
     <div className="card">
       <h2 className="card-title" data-testId="transaction">
@@ -19,7 +19,7 @@ const TransactionDetails = ({ transactions }) => {
             <th>Purchase Date</th>
             <th>Product</th>
             <th>Price</th>
-            <th className="right-aligned">Reward Points</th>
+            <th>Reward Points</th>
           </tr>
         </thead>
         <tbody>
@@ -31,9 +31,7 @@ const TransactionDetails = ({ transactions }) => {
                 <td>{transaction.purchaseDate}</td>
                 <td>{transaction.productName}</td>
                 <td>${formatPrice(transaction.price)}</td>
-                <td className="right-aligned">
-                  {calculatePoints(transaction.price)}
-                </td>
+                <td>{calculatePoints(transaction.price)}</td>
               </tr>
             );
           })}

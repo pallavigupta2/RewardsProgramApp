@@ -6,7 +6,7 @@
       "customerName": "Alice",
       "purchaseDate": "2025-01-15",
       "productName": "Laptop",
-      "price": -120.7893
+      "price": 120.7893
     },
     {
       "id": "T1002",
@@ -188,7 +188,7 @@
       "id": "T10024",
       "customerID": "C009",
       "customerName": "Michael",
-      "purchaseDate": "",
+      "purchaseDate": "2025-01-25",
       "productName": "Laptop",
       "price": 300
     },

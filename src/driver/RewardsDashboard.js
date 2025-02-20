@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { fetchTransactions } from "../utils/Services";
 import logger from "../logger";
 import Header from "../components/Header";
-import Error from "../components/Error";
-import LoadingIndicator from "../components/LoadingIndicator";
+import LoadingIndicator from "../components/common/LoadingIndicator";
 import TabSwitcher from "../components/TabSwitcher";
+import ErrorNotification from "../components/common/ErrorNotification";
 
 const RewardsDashboard = () => {
   const [activeTab, setActiveTab] = useState("transactions");
@@ -33,7 +33,7 @@ const RewardsDashboard = () => {
       {loading ? (
         <LoadingIndicator message="Loading Transactions..." />
       ) : error ? (
-        <Error message={error} />
+        <ErrorNotification message={error} />
       ) : (
         <TabSwitcher activeTab={activeTab} transactions={transactions} />
       )}

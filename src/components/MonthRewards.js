@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { aggregateMonthlyRewards } from "../utils/RewardPointsCalculation";
 import PropTypes from "prop-types";
-import Error from "./Error";
+import ErrorNotification from "./common/ErrorNotification";
 
 const MonthRewards = ({ transactions }) => {
   const monthlyRewards = useMemo(
@@ -9,7 +9,7 @@ const MonthRewards = ({ transactions }) => {
     [transactions]
   );
   return monthlyRewards.size === 0 ? (
-    <Error message="No Monthly Transaction Found" />
+    <ErrorNotification message="No Monthly Transaction Found" />
   ) : (
     <div className="card">
       <h2 className="card-title" data-testid="monthly-reward">
@@ -22,7 +22,7 @@ const MonthRewards = ({ transactions }) => {
             <th>Customer Name</th>
             <th>Month</th>
             <th>Year</th>
-            <th className="right-aligned">Reward Points</th>
+            <th>Reward Points</th>
           </tr>
         </thead>
         <tbody>
@@ -32,7 +32,7 @@ const MonthRewards = ({ transactions }) => {
               <td>{reward.customerName}</td>
               <td>{reward.month}</td>
               <td>{reward.year}</td>
-              <td className="right-aligned">{reward.rewardPoints}</td>
+              <td>{reward.rewardPoints}</td>
             </tr>
           ))}
         </tbody>

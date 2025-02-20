@@ -1,15 +1,15 @@
 import React, { useMemo } from "react";
 import PropTypes from "prop-types";
-import { calculateLastThreeMonthsRewards } from "../utils/RewardPointsCalculation";
-import Error from "./Error";
+import { calculateLastThreeMonthsTotalRewards } from "../utils/RewardPointsCalculation";
+import ErrorNotification from "./common/ErrorNotification";
 
 const TotalRewards = ({ transactions }) => {
   const totalRewards = useMemo(
-    () => calculateLastThreeMonthsRewards(transactions),
+    () => calculateLastThreeMonthsTotalRewards(transactions),
     [transactions]
   );
   return totalRewards.size === 0 ? (
-    <Error message="No Total Rewards Found" />
+    <ErrorNotification message="No Total Rewards Found" />
   ) : (
     <div className="card">
       <h2 className="card-title" data-testid="total-reward">

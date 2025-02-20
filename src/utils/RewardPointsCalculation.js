@@ -1,7 +1,7 @@
 // Helper function to formate price
 export function formatPrice(price) {
   const validPrice = parseFloat(price);
-  return isNaN(validPrice) ? "0.00" : validPrice.toFixed(2);
+  return isNaN(validPrice) ? 0.0 : validPrice.toFixed(2);
 }
 
 // Helper function to calculate reward points
@@ -18,18 +18,52 @@ export const calculatePoints = (price) => {
   return points;
 };
 
-// Function to aggregate monthly rewards
+// Helper function to get the latest transaction date
+const getLatestTransactionDate = (transactions) => {
+  return new Date(
+    Math.max(
+      ...transactions.map(({ purchaseDate }) => {
+        const date = new Date(purchaseDate);
+        return isNaN(date.getTime()) ? -Infinity : date;
+      })
+    )
+  );
+};
+
+// Function to filter transactions within the latest 3 consecutive months
+const filterLastThreeMonthsTransactions = (transactions) => {
+  if (!transactions || transactions.length === 0) return [];
+
+  const latestDate = getLatestTransactionDate(transactions);
+  const threeMonthsAgo = new Date(
+    latestDate.getFullYear(),
+    latestDate.getMonth() - 2,
+    1
+  );
+
+  return transactions.filter(({ purchaseDate }) => {
+    const date = new Date(purchaseDate);
+    return date >= threeMonthsAgo && date <= latestDate;
+  });
+};
+
+// Function to aggregate latest 3 consecutive monthly rewards
+
 export const aggregateMonthlyRewards = (transactions) => {
-  return transactions.reduce(
+  const filteredTransactions = filterLastThreeMonthsTransactions(transactions);
+
+  return filteredTransactions.reduce(
     (acc, { customerID, customerName, purchaseDate, price, id }) => {
       // Validate purchaseDate
       const date = new Date(purchaseDate);
       if (isNaN(date.getTime())) {
-        return acc; // Skip this transaction if the date is invalid
+        return acc; // Skip invalid dates
       }
+
       const month = date.toLocaleString("en-US", { month: "long" });
       const year = date.getFullYear();
       const key = `${customerName}-${year}-${month}`;
+
       if (!acc.has(key)) {
         acc.set(key, {
           id,
@@ -40,45 +74,20 @@ export const aggregateMonthlyRewards = (transactions) => {
           rewardPoints: 0,
         });
       }
-      acc.get(key).rewardPoints += calculatePoints(price);
 
+      acc.get(key).rewardPoints += calculatePoints(price);
       return acc;
     },
     new Map()
   );
 };
 
-// Function to calculate the last three months' rewards
-export const calculateLastThreeMonthsRewards = (transactions) => {
+// Function to calculate the last three months' total rewards
+export const calculateLastThreeMonthsTotalRewards = (transactions) => {
   if (!transactions || transactions.length === 0) return new Map();
 
-  // Determine the latest purchase date from dataset
-  const latestDate = new Date(
-    Math.max(
-      ...transactions.map(({ purchaseDate }) => {
-        const date = new Date(purchaseDate);
-        if (isNaN(date.getTime())) {
-          return -Infinity;
-        }
-        return date;
-      })
-    )
-  );
+  const filteredTransactions = filterLastThreeMonthsTransactions(transactions);
 
-  // Compute the start date of the last three months
-  const threeMonthsAgo = new Date(
-    latestDate.getFullYear(),
-    latestDate.getMonth() - 2,
-    1
-  );
-
-  // Filter transactions within the last three months
-  const filteredTransactions = transactions.filter(({ purchaseDate }) => {
-    const date = new Date(purchaseDate);
-    return date >= threeMonthsAgo && date <= latestDate;
-  });
-
-  // Aggregate reward points using a Map
   return filteredTransactions.reduce((acc, { customerName, price }) => {
     const points = calculatePoints(price);
     acc.set(customerName, (acc.get(customerName) || 0) + points);

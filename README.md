@@ -19,47 +19,27 @@ You may also see any lint errors in the console.
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-### Project Description
+# Project Description
 
 A retailer offers a rewards program to its customers, awarding points based on each recorded purchase. A customer receives 2 points for every dollar spent over $100 in each transaction, plus 1 point for every dollar spent between $50 and $100 in each transaction. (e.g. a $120 purchase = 2*$20 + 1*$50=90 points). It displays total and monthly rewards for each customer.
 
-### App Component
+# App Component
 
 The App component serves as the root component of the application. It manages the application's state, handles data fetching, and renders different components based on the active tab selection. This component initially renders the TransactionDetails component.
 
-Fetches transaction data asynchronously from the fetchTransactions function.
+ - Fetches transaction data asynchronously from the fetchTransactions function.
 
-Displays a loading indicator while fetching data.
+ - Displays a loading indicator while fetching data.
 
-Handles errors and displays an error message if data fetching fails.
+ - Handles errors and displays an error message if data fetching fails.
 
-Maintains an activeTab state to switch between TransactionDetails, TotalRewards, and MonthRewards components.
+ - Maintains an activeTab state to switch between TransactionDetails, TotalRewards, and MonthRewards components.
 
-Uses a logging utility (logger) to track data fetching success and errors.
+ - Uses a logging utility (logger) to track data fetching success and errors.
 
 <img src="./public/media/App.jpg"/>
 
-### Header Component
+# Header Component
 
 The Header component is responsible for rendering the application's navigation bar. It allows users to switch between different views (Transactions, Total Rewards, and User Monthly Rewards).
 
@@ -67,19 +47,19 @@ setActiveTab (function, required) - Updates the active tab state in the parent c
 
 activeTab (string, required) - Represents the currently selected tab. Determines which button should be highlighted as active.
 
-### LoadingIndicator Component
+# LoadingIndicator Component
 
 The LoadingIndicator component is responsible for displaying a loading message while data is being fetched or processed in the application. It provides visual feedback to the user, indicating that an operation is in progress.
 
 <img src="./public/media/Loading.jpg"/>
 
-### Error Component
+# ErrorNotification Component
 
 The Error component is responsible for displaying error messages when an operation fails. It provides a user-friendly way to communicate errors through a visually distinct error container.
 
 <img src="./public/media/Error.jpg"/>
 
-### MonthRewards Component
+# MonthRewards Component
 
 The MonthRewards component calculates and displays monthly reward points for customers based on their purchase transactions.
 
@@ -103,17 +83,17 @@ price | string or number | The price of the purchased product.
 
 aggregateMonthlyRewards(transactions) - Groups transactions by customerName, month, and year. Uses calculatePoints(price) to determine reward points per transaction. Sums the reward points for each unique customer-month-year combination.
 
-<img src="./public/media/MonthlyRewards.jpg"/>
+<img src="./public/media/MonhtlyRewards.jpg"/>
 
 If transactions prop is empty then it will show below error.
 
 <img src="./public/media/EmptyUserMonthlyError.jpg"/>
 
-### TotalRewards Component
+# TotalRewards Component
 
 The TotalRewards component calculates and displays the total reward points earned by customers over the last three months based on their purchase transactions.
 
-calculateLastThreeMonthsRewards(transactions) - Filters transactions from the last three months and aggregates the reward points per customer.
+calculateLastThreeMonthsTotalRewards(transactions) - Filters transactions from the last three months and aggregates the reward points per customer.
 
 Filters transactions from the last three months.
 
@@ -135,7 +115,7 @@ If transactions prop is empty then it will show below error.
 
 <img src="./public/media/EmptyTotalTransactionError.jpg"/>
 
-### TransactionDetails Component
+# TransactionDetails Component
 
 The TransactionDetails component displays a table of transactions, showing details such as transaction ID, customer name, purchase date, product, price, and calculated reward points. It utilizes the calculatePoints utility function to determine reward points based on the price of each transaction.
 
@@ -151,7 +131,7 @@ If transactions prop is empty then it will show below error.
 
 <img src="./public/media/EmptyTransactionError.jpg"/>
 
-### calculatePoints Function
+# calculatePoints Function
 
 The calculatePoints function is a helper utility that calculates reward points based on the purchase price of a transaction. It follows a tiered reward system:
 
@@ -163,12 +143,12 @@ No points for purchases $50 or below.
 
 3 The function rounds down the price to ensure calculations use whole dollar amounts.
 
-### Testing Framework
+# Testing Framework
 
 Libraries Used - React Testing Library: For rendering components and querying DOM elements.
 
 Jest: As the test runner and assertion library.
 
-### Screenshot for all test cases passed.
+# Screenshot for all test cases passed.
 
-<img src="./public/media/TestCase.jpg"/>
+<img src="./public/media/TestCases.jpg"/>

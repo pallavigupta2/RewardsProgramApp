@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Error = ({ message }) => {
+const ErrorNotification = ({ message }) => {
   return (
     <div className="error-container">
       <span className="error-icon">⚠️</span>
@@ -9,7 +9,7 @@ const Error = ({ message }) => {
     </div>
   );
 };
-Error.propTypes = {
+ErrorNotification.propTypes = {
   message: PropTypes.string.isRequired,
 };
-export default Error;
+export default ErrorNotification;
