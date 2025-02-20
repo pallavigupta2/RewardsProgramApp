@@ -125,7 +125,7 @@ The calculatePoints(price) function is used to compute the reward points based o
 
 Prices are parsed to ensure they are valid floating-point numbers.
 
-<img src="./public/media/Transaction.jpg"/>
+<img src="./public/media/Transactions.jpg"/>
 
 If transactions prop is empty then it will show below error.
 

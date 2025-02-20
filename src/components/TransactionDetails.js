@@ -31,7 +31,7 @@ const TransactionDetails = ({ transactions }) => {
                 <td>{transaction.purchaseDate}</td>
                 <td>{transaction.productName}</td>
                 <td>${formatPrice(transaction.price)}</td>
-                <td>{calculatePoints(transaction.price)}</td>
+                <td className="right-aligned">{calculatePoints(transaction.price)}</td>
               </tr>
             );
           })}

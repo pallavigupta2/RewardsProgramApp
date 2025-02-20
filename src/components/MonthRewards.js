@@ -32,7 +32,7 @@ const MonthRewards = ({ transactions }) => {
               <td>{reward.customerName}</td>
               <td>{reward.month}</td>
               <td>{reward.year}</td>
-              <td>{reward.rewardPoints}</td>
+              <td className="right-aligned">{reward.rewardPoints}</td>
             </tr>
           ))}
         </tbody>
