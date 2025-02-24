@@ -1,10 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { calculatePoints, formatPrice } from "../utils/RewardPointsCalculation";
+import { calculatePoints, formatPrice, sortByFieldName } from "../utils/Utils";
 import ErrorNotification from "./common/ErrorNotification";
 
 const TransactionDetails = ({ transactions }) => {
-  return !transactions?.length ? (
+  const sortedTransactions = sortByFieldName(
+    transactions,
+    "purchaseDate",
+    "date"
+  );
+
+  return !sortedTransactions?.length ? (
     <ErrorNotification message="No Transaction Found" />
   ) : (
     <div className="card">
@@ -23,7 +29,7 @@ const TransactionDetails = ({ transactions }) => {
           </tr>
         </thead>
         <tbody>
-          {transactions?.map((transaction) => {
+          {sortedTransactions?.map((transaction) => {
             return (
               <tr key={transaction.id}>
                 <td>{transaction.id}</td>
@@ -31,7 +37,9 @@ const TransactionDetails = ({ transactions }) => {
                 <td>{transaction.purchaseDate}</td>
                 <td>{transaction.productName}</td>
                 <td>${formatPrice(transaction.price)}</td>
-                <td className="right-aligned">{calculatePoints(transaction.price)}</td>
+                <td className="right-aligned">
+                  {calculatePoints(transaction.price)}
+                </td>
               </tr>
             );
           })}

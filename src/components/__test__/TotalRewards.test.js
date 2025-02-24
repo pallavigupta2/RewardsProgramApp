@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import TotalRewards from "../TotalRewards";
-import { calculatePoints } from "../../utils/RewardPointsCalculation";
+import { calculatePoints } from "../../utils/Utils";
 
 describe("TotalRewards Component", () => {
   test("renders total rewards table correctly for last three months (Jan 2024 - Jan 2025)", () => {

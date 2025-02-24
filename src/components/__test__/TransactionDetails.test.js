@@ -4,7 +4,7 @@ import TransactionDetails from "../TransactionDetails";
 import {
   calculatePoints,
   formatPrice,
-} from "../../utils/RewardPointsCalculation";
+} from "../../utils/Utils";
 
 describe("TransactionDetails Component", () => {
   beforeEach(() => {

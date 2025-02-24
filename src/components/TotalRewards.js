@@ -1,12 +1,20 @@
 import React, { useMemo } from "react";
 import PropTypes from "prop-types";
-import { calculateLastThreeMonthsTotalRewards } from "../utils/RewardPointsCalculation";
+import {
+  calculateLastThreeMonthsTotalRewards,
+  sortByFieldName,
+} from "../utils/Utils";
 import ErrorNotification from "./common/ErrorNotification";
 
 const TotalRewards = ({ transactions }) => {
-  const totalRewards = useMemo(
-    () => calculateLastThreeMonthsTotalRewards(transactions),
+  // Sort transactions by customerID (string type)
+  const sortedTransactions = useMemo(
+    () => sortByFieldName(transactions, "customerID", "string"),
     [transactions]
+  );
+  const totalRewards = useMemo(
+    () => calculateLastThreeMonthsTotalRewards(sortedTransactions),
+    [sortedTransactions]
   );
   return totalRewards.size === 0 ? (
     <ErrorNotification message="No Total Rewards Found" />

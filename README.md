@@ -83,7 +83,7 @@ price | string or number | The price of the purchased product.
 
 aggregateMonthlyRewards(transactions) - Groups transactions by customerName, month, and year. Uses calculatePoints(price) to determine reward points per transaction. Sums the reward points for each unique customer-month-year combination.
 
-<img src="./public/media/MonthlyRewards.jpg"/>
+<img src="./public/media/MonthRewards.jpg"/>
 
 If transactions prop is empty then it will show below error.
 

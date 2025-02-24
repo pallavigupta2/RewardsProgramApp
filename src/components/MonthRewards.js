@@ -1,12 +1,17 @@
 import React, { useMemo } from "react";
-import { aggregateMonthlyRewards } from "../utils/RewardPointsCalculation";
+import { aggregateMonthlyRewards, sortByFieldName } from "../utils/Utils";
 import PropTypes from "prop-types";
 import ErrorNotification from "./common/ErrorNotification";
 
 const MonthRewards = ({ transactions }) => {
-  const monthlyRewards = useMemo(
-    () => aggregateMonthlyRewards(transactions),
+  // Sort transactions by customerID (string type)
+  const sortedTransactions = useMemo(
+    () => sortByFieldName(transactions, "customerID", "string"),
     [transactions]
+  );
+  const monthlyRewards = useMemo(
+    () => aggregateMonthlyRewards(sortedTransactions),
+    [sortedTransactions]
   );
   return monthlyRewards.size === 0 ? (
     <ErrorNotification message="No Monthly Transaction Found" />

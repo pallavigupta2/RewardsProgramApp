@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import MonthRewards from "../MonthRewards";
-import { calculatePoints } from "../../utils/RewardPointsCalculation";
+import { calculatePoints } from "../../utils/Utils";
 
 describe("MonthRewards Component", () => {
   test("renders monthly rewards correctly", () => {

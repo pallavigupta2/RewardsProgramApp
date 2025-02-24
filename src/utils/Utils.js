@@ -1,3 +1,34 @@
+// Helper function to sort data
+export const sortByFieldName = (data, fieldName, dataType) => {
+  if (!Array.isArray(data)) {
+    return null;
+  }
+
+  // Deep clone the data
+  const clonedData = JSON.parse(JSON.stringify(data));
+
+  // Sorting logic based on data type
+  clonedData.sort((a, b) => {
+    if (!(fieldName in a) || !(fieldName in b)) return 0; // Handle missing fields
+
+    let valueA = a[fieldName];
+    let valueB = b[fieldName];
+
+    switch (dataType) {
+      case "date":
+        return new Date(valueB) - new Date(valueA); // Descending order
+
+      case "string":
+        return valueB.localeCompare(valueA); // Descending order
+
+      default:
+        return 0;
+    }
+  });
+
+  return clonedData;
+};
+
 // Helper function to formate price
 export function formatPrice(price) {
   const validPrice = parseFloat(price);

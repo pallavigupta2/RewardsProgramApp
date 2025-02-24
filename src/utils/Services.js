@@ -10,11 +10,7 @@ export const fetchTransactions = async () => {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
     const data = await response.json();
-    const clonedData = JSON.parse(JSON.stringify(data.TRANSACTION_DATA));
-    const sortedTransactions = clonedData.sort(
-      (a, b) => new Date(b.purchaseDate) - new Date(a.purchaseDate)
-    );
-    return sortedTransactions;
+    return data.TRANSACTION_DATA;
   } catch (err) {
     logger.error("Failed to load transactions...", err);
     throw err;
