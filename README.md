@@ -37,7 +37,7 @@ The App component serves as the root component of the application. It manages th
 
  - Uses a logging utility (logger) to track data fetching success and errors.
 
-<img src="./public/media/App.jpg"/>
+<img src="./public/media/Transactions.jpg"/>
 
 # Header Component
 
@@ -83,7 +83,7 @@ price | string or number | The price of the purchased product.
 
 aggregateMonthlyRewards(transactions) - Groups transactions by customerName, month, and year. Uses calculatePoints(price) to determine reward points per transaction. Sums the reward points for each unique customer-month-year combination.
 
-<img src="./public/media/MonhtlyRewards.jpg"/>
+<img src="./public/media/MonthlyRewards.jpg"/>
 
 If transactions prop is empty then it will show below error.
 

@@ -199,6 +199,46 @@
       "purchaseDate": "2025-02-25",
       "productName": "Mouse",
       "price": "sss50.9876"
+    },
+    {
+      "id": "T10026",
+      "customerID": "C003",
+      "customerName": "Charlie",
+      "purchaseDate": "2025-02-20",
+      "productName": "Laptop",
+      "price": 420.4567
+    },
+    {
+      "id": "T10027",
+      "customerID": "C009",
+      "customerName": "Michael",
+      "purchaseDate": "2025-02-25",
+      "productName": "Laptop",
+      "price": 120
+    },
+    {
+      "id": "T10028",
+      "customerID": "C001",
+      "customerName": "Alice",
+      "purchaseDate": "2025-02-15",
+      "productName": "Tablet",
+      "price": 1151.8765
+    },
+    {
+      "id": "T10029",
+      "customerID": "C009",
+      "customerName": "Michael",
+      "purchaseDate": "2025-01-25",
+      "productName": "Tablet",
+      "price": 199.99
+    },
+    {
+      "id": "T10030",
+      "customerID": "C003",
+      "customerName": "Charlie",
+      "purchaseDate": "2025-15-25",
+      "productName": "Bluetooth Speaker",
+      "price": 59.99
     }
   ]
 }
